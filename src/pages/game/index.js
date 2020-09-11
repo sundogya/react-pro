@@ -1,9 +1,10 @@
 import React from "react";
-import "../skins/game/index.css";
-import { makeStyles } from "@material-ui/core/styles";
+import "../../skins/game/index.css";
+import { Button, Snackbar } from "@material-ui/core";
 import Websocket from "react-websocket";
-import Button from "@material-ui/core/Button";
-const baseUrl = "http://192.168.2.137:8081/";
+import { Alert } from "@material-ui/lab";
+import { api } from "../../utils";
+import { useStyles } from "../../skins";
 function Square(props) {
   return (
     <button className="square" onClick={props.onClick}>
@@ -77,7 +78,7 @@ const calcWin = (lines, squares) => {
 class Board extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       squares: Array(squareLen * squareLen).fill(null),
       xIsNext: true,
@@ -181,54 +182,53 @@ class Board extends React.Component {
     );
   }
 }
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& > *": {
-      margin: theme.spacing(2),
-    },
-  },
-}));
-const getData = () => {
-  fetch(baseUrl + "auth/admin/login?userName=admin&password=naxin@2020", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    // mode: "cors",
-    cache: "default",
-  })
-    .then((res) => {
-      if (res.status !== 200) {
-        // console.log(res.json().then)
-        const err = new Error(res.statusText);
-        err.response = res.json();
-        throw err;
-      } else {
-        return res.json();
-      }
-    })
-    .then((json) => {
-      console.log(json);
-    })
-    .catch((err) => {
-      err.response.then((res) => {
-        console.log(res);
-      });
-    });
-};
 class Game extends React.Component {
   constructor(props) {
     super(props);
+    this.getData = this.getData.bind(this);
+    this.handleClose = this.handleClose.bind(this);
     this.state = {
       rReset: false,
+      alert: null,
     };
   }
-  Reset(){
-    window.location.reload()
+  Reset() {
+    window.location.reload();
+  }
+  handleClose() {
+    this.setState({
+      alert: null,
+    });
+  }
+  getData(env) {
+    api("auth/admin/login", "GET", {
+      userName: "admin",
+      password: "naxin@2020",
+    }).then((res) => {
+      console.log(res);
+      if (!res.data) {
+        const jsx = (
+          <Snackbar
+            open={true}
+            autoHideDuration={3000}
+            onClose={this.handleClose}
+          >
+            <Alert severity="error" onClose={this.handleClose}>
+              {res.message}
+            </Alert>
+          </Snackbar>
+        );
+        this.setState({
+          alert: jsx,
+        });
+        return;
+      }
+    });
   }
   render() {
     return (
       <div className={["game", useStyles.root].join(" ")}>
+        {this.state.alert}
         <div className="game-board">
           <Board ref="game" />
         </div>
@@ -237,10 +237,17 @@ class Game extends React.Component {
           <ol>{/* TODO */}</ol>
         </div>
         <div>
-          <Button variant="contained" color="primary" onClick={getData}>
+          <Button variant="contained" color="primary" onClick={this.getData}>
             API
           </Button>
-          <Button variant="contained" color="primary" onClick={()=>{this.Reset()}} style={{marginLeft:'20px'}}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              this.Reset();
+            }}
+            style={{ marginLeft: "20px" }}
+          >
             RESET
           </Button>
         </div>

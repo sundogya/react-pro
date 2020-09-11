@@ -1,3 +1,4 @@
-import Header from './header.js';
+import Header from './header.jsx';
+import SiderBar from './siderBar';
 
-export{Header};
+export{Header,SiderBar};

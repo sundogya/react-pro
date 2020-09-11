@@ -10,9 +10,6 @@ function Search(props) {
   const [values, setValues] = React.useState({
     userName: "",
     password: "",
-    // soc: undefined,
-    // number: undefined,
-    // idCard: undefined,
   });
   const handleInput = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -22,40 +19,6 @@ function Search(props) {
   };
   return (
     <div className={classes.contentName}>
-      {props.Number ? (
-        <TextField
-          value={values.number || ""}
-          className={clsx(classes.margin, classes.textField)}
-          name="number"
-          type="number"
-          variant="outlined"
-          onChange={handleInput}
-          label="Number"
-        />
-      ) : null}
-      {props.IdCard ? (
-        <TextField
-          value={values.idCard || ""}
-          className={clsx(classes.margin, classes.textField)}
-          name="idCard"
-          type="text"
-          variant="outlined"
-          onChange={handleInput}
-          label="IdCard"
-        />
-      ) : null}
-      {props.Soc ? (
-        <TextField
-          value={values.soc || ""}
-          className={clsx(classes.margin, classes.textField)}
-          name="soc"
-          type="number"
-          max={100}
-          variant="outlined"
-          onChange={handleInput}
-          label="Soc"
-        />
-      ) : null}
       {props.Name ? (
         <TextField
           value={values.userName}
@@ -117,9 +80,6 @@ function Container(props) {
       {alert}
       <Search
         Name={true}
-        // Number={true}
-        // IdCard={true}
-        // Soc={true}
         Pwd={true}
         getInput={getInput}
       />
@@ -127,9 +87,9 @@ function Container(props) {
   );
 }
 
-class Detail extends React.Component {
+class Login extends React.Component {
   render() {
     return <Container />;
   }
 }
-export default Detail;
+export default Login;

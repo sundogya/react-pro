@@ -1,20 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router, Route } from "react-router";
-import { Game } from "./game";
-import { Header } from "./pages/common";
-import { createBrowserHistory } from "history";
-import { OrderList, OrderDetail } from "./pages/order";
-const history = createBrowserHistory();
+import Routers from "./route";
+import { Header, SiderBar } from "./pages/common";
+const Common = () => {
+  const headerObj = { name: "BackEnd Manage" };
+  headerObj.isLogin = localStorage.getItem("token") ? true : false;
+  headerObj.avatar = localStorage.getItem("avatar")
+    ? localStorage.getItem("avatar")
+    : null;
+    headerObj.nickName = localStorage.getItem("nickName")
+    ? localStorage.getItem("nickName")
+    : null; 
+  return <Header {...headerObj} />;
+};
 ReactDOM.render(
-  (<Router history={history}>
-    <Route path="/" exact component={Header}></Route>
-    <Route path="/game" component={Game} />
-    <Route path="/header" component={Header} />
-    <Route path="/hello" component={OrderList} />
-    <Route exact={true} path="/order" component={Header}/>
-    <Route exact={true} path="/order/detail" component={OrderDetail}/>
-    <Route path="/order/:name" component={OrderList}/>
-  </Router>),
+  <div>
+    <Common />
+    <SiderBar>
+      <Routers />
+    </SiderBar>
+  </div>,
   document.getElementById("root")
 );
