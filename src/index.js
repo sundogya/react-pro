@@ -10,7 +10,7 @@ const Common = () => {
     : null;
     headerObj.nickName = localStorage.getItem("nickName")
     ? localStorage.getItem("nickName")
-    : null; 
+    : 'Admin'; 
   return <Header {...headerObj} />;
 };
 ReactDOM.render(

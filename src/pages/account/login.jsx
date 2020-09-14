@@ -17,7 +17,7 @@ function Search(props) {
     props.getInput(values);
   };
   return (
-    <div className={classes.contentName}>
+    <div>
       {props.Name ? (
         <TextField
           value={values.userName}
