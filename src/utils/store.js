@@ -1,4 +1,7 @@
-import { createStore, combineReducers } from "redux";
+import { createStore} from "redux";
+import {persistStore,persistCombineReducers} from 'redux-persist'
+import storage from 'redux-persist/lib/storage';
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
 function open(state = false, action) {
   switch (action.type) {
@@ -18,11 +21,17 @@ function counter(state = 0, action) {
       return state;
   }
 }
+const config =  {
+  key: 'root',
+  storage: storage,
+  stateReconciler: autoMergeLevel2
+};
+
 const store = createStore(
-  combineReducers({
+  persistCombineReducers(config,{
     open,
     counter,
   })
 );
-
+export const persistor = persistStore(store)
 export default store;

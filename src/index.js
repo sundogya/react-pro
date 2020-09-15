@@ -1,24 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Routers from "./route";
-import { Header, SiderBar } from "./pages/common";
-const Common = () => {
-  const headerObj = { name: "BackEnd Manage" };
-  headerObj.isLogin = localStorage.getItem("token") ? true : false;
-  headerObj.avatar = localStorage.getItem("avatar")
-    ? localStorage.getItem("avatar")
-    : null;
-    headerObj.nickName = localStorage.getItem("nickName")
-    ? localStorage.getItem("nickName")
-    : 'Admin'; 
-  return <Header {...headerObj} />;
-};
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+
 ReactDOM.render(
-  <div>
-    <Common />
-    <SiderBar>
-      <Routers />
-    </SiderBar>
-  </div>,
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
   document.getElementById("root")
 );
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();

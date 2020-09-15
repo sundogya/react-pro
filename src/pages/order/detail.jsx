@@ -90,28 +90,22 @@ function Container(props) {
   const getInput = (value) => {
     api("auth/admin/login", "GET", value).then((res) => {
       console.log(res);
-      if (!res.data) { 
-        setAlert(<Snackbar
-          open={true}
-          autoHideDuration={3000}
-          onClose={handleClose}
-        >
-          <Alert
-            severity="error"
-            onClose={handleClose}
-            variant="outlined"
-          >
-            {res.message}
-          </Alert>
-        </Snackbar>)
+      if (!res.data) {
+        setAlert(
+          <Snackbar open={true} autoHideDuration={3000} onClose={handleClose}>
+            <Alert severity="error" onClose={handleClose} variant="outlined">
+              {res.message}
+            </Alert>
+          </Snackbar>
+        );
         return;
       }
       localStorage.setItem("token", res.data.token);
     });
-  }
+  };
   const handleClose = () => {
-    setAlert(false)
-  }
+    setAlert(false);
+  };
   return (
     <div className={classes.content}>
       {alert}
@@ -126,10 +120,8 @@ function Container(props) {
     </div>
   );
 }
+const Detail = () => {
+  return <Container />;
+};
 
-class Detail extends React.Component {
-  render() {
-    return <Container />;
-  }
-}
 export default Detail;

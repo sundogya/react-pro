@@ -1,10 +1,13 @@
 import config from './config';
 import api from './api';
 import contentType from './type';
-import store from './store';
+import store,{persistor}  from './store';
+import actions from './actions';
 export {
     config,
     api,
     contentType,
-    store
+    store,
+    actions,
+    persistor
 }

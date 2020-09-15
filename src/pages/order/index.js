@@ -1,4 +1,4 @@
-import OrderList from "./list.js";
-import OrderDetail from './detail.js';
+import OrderList from "./list.jsx";
+import OrderDetail from './detail.jsx';
 
 export { OrderList,OrderDetail };

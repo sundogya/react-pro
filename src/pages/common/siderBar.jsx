@@ -4,23 +4,16 @@ import {
   List,
   ListItemIcon,
   ListItem,
-  ListItemText,
-  CssBaseline 
+  ListItemText
 } from "@material-ui/core";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import clsx from "clsx";
-import { store } from "../../utils";
 import { useStyles } from "../../skins";
+import {useSelector} from "react-redux";
 const SiderBar = (props) => {
-  // console.log(props)
-  const [open, setOpen] = React.useState(store.getState().open);
   const classes = useStyles();
-  store.subscribe(() => {
-    const state = store.getState();
-    console.log(state);
-    setOpen(state.open);
-  });
+  const open = useSelector(state=>state.open)
   return (
     <div className={classes.root}>
       <Drawer
