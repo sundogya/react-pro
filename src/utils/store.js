@@ -21,6 +21,32 @@ function counter(state = 0, action) {
       return state;
   }
 }
+function nickName(state = null, action) {
+  switch (action.type) {
+    case "SET_NICKNAME":
+      return action.payload;
+    default:
+      return state;
+  }
+}
+function avatar(state = null, action) {
+  switch (action.type) {
+    case "SET_AVATAR":
+      return action.payload;
+    default:
+      return state;
+  }
+}
+function isLogin(state = false, action) {
+  switch (action.type) {
+    case "LOGIN":
+      return true;
+    case "LOGOUT":
+      return false;
+    default:
+      return state;
+  }
+}
 const config =  {
   key: 'root',
   storage: storage,
@@ -31,6 +57,9 @@ const store = createStore(
   persistCombineReducers(config,{
     open,
     counter,
+    nickName,
+    isLogin,
+    avatar
   })
 );
 export const persistor = persistStore(store)

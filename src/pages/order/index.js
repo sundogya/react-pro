@@ -1,4 +1,4 @@
-import OrderList from "./list.jsx";
-import OrderDetail from './detail.jsx';
+import { ListOrder, SearchOrder } from "./list.jsx";
+import OrderDetail from "./detail.jsx";
 
-export { OrderList,OrderDetail };
+export { ListOrder, OrderDetail, SearchOrder };

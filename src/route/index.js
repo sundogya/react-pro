@@ -1,21 +1,35 @@
 import React from "react";
-import { Router, Route } from "react-router";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Game } from "../pages/game";
-import { createBrowserHistory } from "history";
-import { OrderList, OrderDetail } from "../pages/order";
-import {Login} from "../pages/account";
-const history = createBrowserHistory();
+import { OrderList, OrderDetail } from "../manage/order";
+import { Login } from "../pages/account";
+import { Header, SiderBar } from "../pages/common";
 
-function Routers() {
+const Base = () => {
   return (
-    <Router history={history}>
-      <Route path="/"></Route>
-      <Route path="/game" component={Game} />
-      <Route path="/hello" component={OrderList} />
-      <Route exact={true} path="/order/detail" component={OrderDetail} />
-      <Route path="/order/list" component={OrderList} />
-      <Route path="/account/login" component={Login}/>
-    </Router>
+    <div>
+      <Header />
+      <SiderBar>
+        <Switch>
+          <Route path="/game" component={Game} />
+          <Route path="/hello" component={OrderList} />
+          <Route path="/order/detail" component={OrderDetail} />
+          <Route path="/order/list" component={OrderList} />
+        </Switch>
+      </SiderBar>
+    </div>
   );
-}
-export default Routers;
+};
+const Routes = () => {
+  return (
+    <div className="App">
+      <Router>
+        <Switch>
+          <Route exact path="/account/login" component={Login} />
+          <Route path="/" component={Base}></Route>
+        </Switch>
+      </Router>
+    </div>
+  );
+};
+export default Routes;

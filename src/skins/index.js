@@ -60,5 +60,13 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  textInput:{
+    margin:theme.spacing(1),
+    width:260
+  },
+  outInput:{
+    display:"flex",
+    alignItems:"center"
+  }
 }));
 export { useStyles };

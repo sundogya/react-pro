@@ -25,23 +25,18 @@ function api(path, method, data, header = null) {
     cache: "default",
   };
   if (method !== "GET") {
-    reqProperty.body = data;
+    reqProperty.body = JSON.stringify(data);
   }
   return fetch(config.baseUrl + path, reqProperty)
     .then((origin) => {
       if (origin.status !== 200) {
-        const err = new Error(origin.statusText);
-        err.response = origin.json();
-        throw err;
+        return {msg:origin.statusText}
       } else {
         return origin.json();
       }
     })
     .catch((err) => {
-      console.log(err.response);
-      err.response.then((res) => {
-        console.log(res);
-      });
+      console.log(err)
     });
 }
 export default api;
